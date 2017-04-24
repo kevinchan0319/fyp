@@ -1,0 +1,15 @@
+
+<html>
+  
+<body>
+
+<form action="/insert" method="get">
+    <input type="submit" value="insert" 
+         name="Submit" id="insert" />
+</form>
+</body>
+<form action="/" method="get">
+    <input type="submit" value="create shopping list" 
+         name="Submit" id="createShopping" />
+</form>
+</html>

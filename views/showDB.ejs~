@@ -1,0 +1,25 @@
+
+<html>
+
+<body>
+<h1>Create Your Shopping List</h1>
+	
+	<table border='1' name="mytable">
+	<% for (var i=1;i<result.length+1;i++){%>
+	
+	<td align='center'><img src="result[i-1].data:  <%=result[i-1].mimetype%>+;base64,<%=data%>" alt='Smiley face' height='200' width='200'></a>
+	<br><%= result[i-1].name %>
+	<br><input type="number" value="0" size="30000"  min="0" max="100" name="number"/>
+	<br><input type="hidden" name="id" value="<%= result[i-1]._id%>">
+	</td>
+	<% if(i%3==0){%><%-"</tr>"%>
+	<%}}%>
+	</table>
+	<form acton="/createShoppingList" method="post">
+	Name Of List:<input type="text" name="nameOfList">
+	<button>Create Shopping List</button>
+	</form>
+
+
+</body>
+</html>

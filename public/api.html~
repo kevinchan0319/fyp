@@ -1,0 +1,31 @@
+
+<html>
+  <title>Create Restaurants</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<header class="w3-container w3-black">
+
+  </br>
+  </br>
+  <h1>New Restaurant</h1>
+  </br>
+  </br>
+</header>
+<body>
+	<form  enctype ="multipart/form-data" action="/api/create" method="post"  class="w3-container w3-card-3">
+	Name:<input type="text" name="name" class="w3-input" required><br>
+	Borough: <input type="text" name="borough" class="w3-input"><br>
+	Cuisine: <input type="text" name="cuisine" class="w3-input"><br>
+	Street: <input type="text" name="street" class="w3-input"><br>
+	Building: <input type="text" name="building" class="w3-input"><br>
+	Zipcode: <input type="text" name="zipcode" class="w3-input"><br>
+	GPS:<br>
+	Longitude: <input type="text" name="lon" class="w3-input"><br>
+	Latitude: <input type="text" name="lat" class="w3-input"><br>
+	Photo:<br><input type="file" name="sampleFile"><br>
+	
+	<input type="submit" value="Create" class="w3-btn w3-ripple w3-yellow"/>
+	<input onclick="history.go(-1);" type="button" class="w3-btn w3-ripple w3-yellow" value="Back"/>
+	</form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<html>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<header class="w3-container w3-black">
+
+  </br>
+  </br>
+  <h1>Login</h1>
+  </br>
+  </br>
+</header>
+<body>
+	<form action="/login" method="post"  class="w3-container w3-card-3">
+		Username: <input class="w3-input" type="text" name="name" required><br>
+		Password: <input class="w3-input" type="password" name="password" required><br>
+	<input type="submit" value="Login" class="w3-btn w3-ripple w3-yellow">
+	<a href="/createAccount"><button type="button" class="w3-btn w3-ripple w3-yellow">Create Account</button></a>
+	</form>
+	
+</body>
+</html>

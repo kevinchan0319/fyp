@@ -1,0 +1,25 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=Big5">
+<title>Restaurant</title>
+</head>
+<body>
+
+<form action="http://localhost:8099/new" method="get">
+	
+	Name:<input type="text" name="name"><br>
+	Borough: <input type="text" name="borough"><br>
+	Cuisine: <input type="text" name="cuisine"><br>
+	Street: <input type="text" name="street"><br>
+	Building: <input type="text" name="building"><br>
+	Zipcode: <input type="text" name="zipcode"><br>
+	GPS:</br>
+	Longitude: <input type="text" name="lon"><br>
+	Latitude: <input type="text" name="lat"><br>
+
+	<br>
+	<input type="submit" value="Create">
+</form>
+
+
+
+</body></html>
