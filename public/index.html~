@@ -9,7 +9,7 @@
 </form>
 
 <form action="/showShoppingDB" method="get">
-    <input type="submit" value="create shopping list" 
+    <input type="submit" value="showImage" 
          name="Submit" id="showImage" />
 </form>
 <form action="/api/read/fyp" method="get">

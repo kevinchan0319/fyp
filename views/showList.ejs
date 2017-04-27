@@ -1,0 +1,36 @@
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+</head>
+<body aligh="center">
+<h2 align="center" ><%= name%></h2>
+	<table border='1' name="mytable" class="w3-table">
+	<tr class="w3-grey">
+	<td width="50%"> Product Name</td>
+	<td width="50%">Quantity</td>
+	</tr>
+	
+	<% for (var i=0;i<list.length;i++){%>
+	<tr>
+	<td width="50%">
+	<%= list[i] %>
+	</td>
+	<td width="50%">
+	<%=list1[i]%>
+	</td>
+	</tr>
+	<%}%>
+	</table></br>
+<div align="center">
+<button class="w3-button w3-teal" onclick="goBack()">BACK</button>
+</div></br>
+<script>function goBack(){
+window.history.back();}</script>
+	
+
+
+
+</body>
+</html>

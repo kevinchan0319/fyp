@@ -1,23 +1,28 @@
 
 <html>
-
+<head>
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+</head>
 <body>
-<h1>Create Your Shopping List</h1>
-	
-	<table border='1' name="mytable">
+<h4 align="center" class="w3-panel w3-grey">Create Your Shopping List</h4>
+	<form acton="/createShoppingList" method="post" align="center">
+	<a><input  type="text" name="nameOfList" value="Name Of List" class="w3-input" required><br>
+	<table border='0' align="center">
 	<% for (var i=1;i<result.length+1;i++){%>
 	
-	<td align='center'><img src="result[i-1].data:  <%=result[i-1].mimetype%>+;base64,<%=data%>" alt='Smiley face' height='200' width='200'></a>
-	<br><%= result[i-1].name %>
-	<br><input type="number" value="0" size="30000"  min="0" max="100" name="number"/>
-	<br><input type="hidden" name="id" value="<%= result[i-1]._id%>">
+	<td align='center'><img src="data:  <%=result[i-1].mimetype%>+;base64,<%=result[i-1].data%>" alt='Smiley face' height='160' width='160'></a>
+	<br><a align='center'><%= result[i-1].name %>
+	<br><a align='center'><input type="number" value="0"  min="0" max="100" name="number"/>
+	<br><input type="hidden" name="id" value="<%= result[i-1].name %>">
 	</td>
-	<% if(i%3==0){%><%-"</tr>"%>
+	<% if(i%2==0){%><%-"</tr>"%>
 	<%}}%>
+	
+
 	</table>
-	<form acton="/createShoppingList" method="post">
-	Name Of List:<input type="text" name="nameOfList">
-	<button>Create Shopping List</button>
+	<button aligh="center"class="w3-button w3-teal" type="submit">Create Shopping List</button>
+</a></a></br></br></br></br>
 	</form>
 
 

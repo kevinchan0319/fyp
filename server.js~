@@ -132,7 +132,7 @@ app.post("/showShoppingDB",function(req,res){
 		if(arr[i]==0){continue;}
 		else{
 			list[list.length] = [arr1[i]];
-			list1[list1.length]= [arr[i]];}		
+			list1[list.length]= [arr[i]];}		
 				
 	}
 	console.log(list+":"+list1);
