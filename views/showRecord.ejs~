@@ -1,0 +1,52 @@
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+</head>
+<body aligh="center">
+<h2 align="center" >ALL LIST</h2>
+<form action="/delete" method="post" align="center">
+	<table border='1' name="mytable" class="w3-table">
+	<tr class="w3-grey">
+	<td width="50%">Date</td>
+	<td width="50%">List Name</td>
+	<td width="50%">Delete</td>
+	</tr>
+	
+	<% for (var i=0;i<result.length;i++){%>
+	<tr>
+	<td width="50%">
+	<%= result[i].date %>
+	</td>
+	<td width="50%">
+	<a type="hidden" href=/showDetail?id=<%=result[i]._id%>><%=result[i].name%></a>
+	</td>
+	<td>
+<input type="checkbox" type="hidden" name="del" value="<%=result[i]._id%>"></input>
+	</td>
+	
+	</tr>
+	<%}%>
+	</table></br>
+	<button type="submit"  class="w3-button w3-teal"type="submit" id="change">Delete</button>
+	<a href="/showShoppingDB"><button class="w3-button w3-teal" type ="button">Create Shopping List</button></a>
+</from>
+<!--
+<div align="center">
+<button class="w3-button w3-teal" onclick="goBack()">BACK</button>
+</div></br>
+<script>function goBack(){
+window.history.back();}</script>-->
+<script>
+
+$('#del').change(function () {
+    $('#change').prop("disabled", !this.checked);
+}).change()
+
+</script>
+</br></br></br></br>
+
+
+</body>
+</html>

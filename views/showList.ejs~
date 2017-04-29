@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 </head>
 <body aligh="center">
-<h2 align="center" width="100%"><%= name%></h2>
+<h2 align="center" ><%= name%></h2>
 	<table border='1' name="mytable" class="w3-table">
 	<tr class="w3-grey">
 	<td width="50%"> Product Name</td>
@@ -24,10 +24,11 @@
 	<%}%>
 	</table></br>
 <div align="center">
-<button class="w3-button w3-teal" onclick="goBack()">BACK</button>
+
+<a ><button class="w3-button w3-teal"><a href="/showRecord">Show All List</a></button></a>
+
 </div></br>
-<script>function goBack(){
-window.history.back();}</script>
+
 	
 
 

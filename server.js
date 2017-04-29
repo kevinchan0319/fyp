@@ -118,6 +118,7 @@ app.post("/showShoppingDB",function(req,res){
 	var cre = req.body;
 	var list =[];
 	var list1=[];
+	var record ={};
 	console.log(cre);
 	var arr = cre.number;
 	var arr1 = cre.id;
@@ -131,15 +132,95 @@ app.post("/showShoppingDB",function(req,res){
 		
 		if(arr[i]==0){continue;}
 		else{
-			list[list.length] = [arr1[i]];
-			list1[list1.length]= [arr[i]];}		
-				
+			list[list.length] = arr1[i];
+			list1[list1.length]= arr[i];
+			
+		}		
+					
 	}
-	console.log(list+":"+list1);
+	record={name:name,date:new Date().toDateString(),id:list,quantity:list1};
+	
+	console.log(record);
+	MongoClient.connect(mongourl, function(err, db) {
+			db.collection('recordList').insertOne(record,function(err,result){
+		db.close();
+	});	
+	});
+
 	res.render('showList',{list:list,list1:list1,name:name});
 });
 
+app.get("/showRecord",function(req,res){
+	
+MongoClient.connect(mongourl, function(err, db) {
+	//db.collection('recordList').find().toArray(function(err,result){
+		//db.close();
+	//res.render('showRecord',{list:result.id,list1:result.quantity,name:result.name,result:result,_id:result._id});
+	showDB2(db,function(result){
+	db.close();
+	res.render('showRecord',{list:result.id,list1:result.quantity,name:result.name,result:result,_id:result._id});
+	});	
 
+	});
+	
+	
+});
+function showDB2(db,callback){
+	db.collection('recordList').find().toArray(function(err,result){
+		callback(result);
+	
+	
+	
+	});
+	
+};
+app.get("/showDetail",function(req,res){
+ 	//var id = req.query.id;
+	var id ={'_id':ObjectId(req.query.id)};
+MongoClient.connect(mongourl, function(err, db) {
+	db.collection('recordList').findOne(id,function(err,result){
+		db.close();
+	res.render('showList',{list:result.id,list1:result.quantity,name:result.name,result:result,_id:result._id});	
+	
+	});
+	});
+	
+
+});
+app.post("/delete",function(req,res){
+ 	//var id = req.query.id;
+	//console.log(req.body.del.length);
+	//var id ={'_id':ObjectId(req.body.del)};
+	//console.log(req.body.del);
+	
+
+
+MongoClient.connect(mongourl, function(err, db) {
+	if(!req.body.del){	showDB2(db,function(result){
+	db.close();
+	res.render('showRecord',{list:result.id,list1:result.quantity,name:result.name,result:result,_id:result._id});
+	});}else
+	if(req.body.del[0].length==24){
+	for(var i=0;i<req.body.del.length;i++){
+	var id = {'_id':ObjectId(req.body.del[i])};
+	//console.log(id);
+	db.collection('recordList').deleteMany(id,function(err,result){
+	db.close();	
+	//res.(/showRecord);
+	
+	});}}else{
+	var id = {'_id':ObjectId(req.body.del)};
+		db.collection('recordList').deleteMany(id,function(err,result){
+	db.close();});
+	}
+	showDB2(db,function(result){
+	db.close();
+	res.render('showRecord',{list:result.id,list1:result.quantity,name:result.name,result:result,_id:result._id});
+	});	
+	});
+	
+
+});
 
 
 
