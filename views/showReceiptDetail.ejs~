@@ -1,0 +1,43 @@
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+</head>
+<body aligh="center">
+<h2 align="center" ><%= date%></h2>
+	<table border='1' name="mytable" class="w3-table">
+	<tr class="w3-grey">
+	<td width="50%"> Product Name</td>
+	<td width="50%">Quantity</td>
+	<td width="50%">Price</td>
+	</tr>
+	
+	<% for (var i=0;i<name.length;i++){%>
+	<tr>
+	<td width="50%">
+	<%= name[i] %>
+	</td>
+	<td width="50%">
+	<%=quantity[i]%>
+	</td>
+	<td width="50%">
+	<%=price[i]%>
+	</td>
+	</tr>
+	<%}%>
+	</table>
+
+<h4>Total Price: $<%=totalPrice%></h4>
+<div align="center">
+
+<a href="/showReceipt"><button class="w3-button w3-teal">Show All Receipt</button></a>
+
+</div></br>
+
+	
+
+
+
+</body>
+</html>

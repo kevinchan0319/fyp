@@ -199,7 +199,7 @@ MongoClient.connect(mongourl, function(err, db) {
 	if(!req.body.del){	showDB2(db,function(result){
 	db.close();
 	res.render('showRecord',{list:result.id,list1:result.quantity,name:result.name,result:result,_id:result._id});
-	});}
+	});}else
 	if(req.body.del[0].length==24){
 	for(var i=0;i<req.body.del.length;i++){
 	var id = {'_id':ObjectId(req.body.del[i])};
@@ -222,12 +222,196 @@ MongoClient.connect(mongourl, function(err, db) {
 
 });
 
+/*
+app.get("/showGrocery",function(req,res){
+MongoClient.connect(mongourl, function(err, db) {
+	
+	showReceipt(db,function(result){
+	db.close();
+	res.render('showReceipt',{list:result.id,list1:result.quantity,name:result.name,result:result,_id:result._id});
+	});	
+
+	});
+	
+	
+});
+function showReceipt(db,callback){
+	db.collection('Receipt').find().toArray(function(err,result){
+		callback(result);
+	
+	
+	
+	});
+	
+};*/
+////////////////////
+app.get("/insertReceipt",function(req,res){
+res.sendFile(__dirname+'/public/createReceipt.html');
+});
+app.post("/insertReceipt",sampleFile,function(req,res){
+	//console.log(req.file.mimetype);
+	
+	
+	
+	MongoClient.connect(mongourl, function(err, db) {
+			var criteria = req.body;
+	var name = criteria.name;
+	var quantity = criteria.quantity;
+	var price = criteria.price;
+	var date =new Date().toDateString();
+
+	var totalPrice=0;
+	for(var i =0;i<price.length;i++){
+	totalPrice=totalPrice+parseFloat(price[i]);	
+	}
+		var a ={
+	'date':new Date().toDateString(),
+	'name':name,
+	'quantity':quantity,
+	'price':price,
+	'totalPrice':totalPrice
+	//'image':image
+	};	
+	
+	
+		createReceipt(db,a,function(result){
+		db.close();
+		res.render("showReceiptDetail",{name:name,quantity:quantity,price:price,date:date,totalPrice:totalPrice});
+		
+		});	
+	});
+	
 
 
+});
+function createReceipt(db,a,callback){
+	db.collection('receipt').insertOne(a,function(err,result){
+		callback(result);
+	});	
+	
+};
+
+app.get("/showAllReceipt",function(req,res){
+	
+MongoClient.connect(mongourl, function(err, db) {
+	
+	showAllReceipt(db,function(result){
+	db.close();
+	console.log(result);
+	res.render('showAllReceipt',{result:result});
+	});	
+
+	});
+	
+	
+});
+function showAllReceipt(db,callback){
+	db.collection('receipt').find().toArray(function(err,result){
+		callback(result);
+	
+	
+	
+	});
+	
+};
+
+app.get("/showReceiptDetail",function(req,res){
+ 	//var id = req.query.id;
+	var id ={'_id':ObjectId(req.query.id)};
+MongoClient.connect(mongourl, function(err, db) {
+	db.collection('receipt').findOne(id,function(err,result){
+		db.close();
+	
+	res.render("showReceiptDetail",{name:result.name,quantity:result.quantity,price:result.price,date:result.date,totalPrice:result.totalPrice})	
+	
+	});
+	});
+	
+
+});
+app.post("/deleteReceipt",function(req,res){
+ 	//var id = req.query.id;
+	//console.log(req.body.del.length);
+	//var id ={'_id':ObjectId(req.body.del)};
+	//console.log(req.body.del);
+	
 
 
+MongoClient.connect(mongourl, function(err, db) {
+	if(!req.body.del){		showAllReceipt(db,function(result){
+	db.close();
+	console.log(result);
+	res.render('showAllReceipt',{result:result});
+	});}else
+	if(req.body.del[0].length==24){
+	for(var i=0;i<req.body.del.length;i++){
+	var id = {'_id':ObjectId(req.body.del[i])};
+	//console.log(id);
+	db.collection('receipt').deleteMany(id,function(err,result){
+	db.close();	
+	//res.(/showRecord);
+	
+	});}}else{
+	var id = {'_id':ObjectId(req.body.del)};
+		db.collection('receipt').deleteMany(id,function(err,result){
+	db.close();});
+	}
+	showAllReceipt(db,function(result){
+	db.close();
+	console.log(result);
+	res.render('showAllReceipt',{result:result});
+	});
+	});
+	
 
+});
+const arrayUnion = require('array-union');
+app.get("/showAllGrocery",function(req,res){
+	
+MongoClient.connect(mongourl, function(err, db) {
+	
+	showAllReceipt(db,function(result){
+	db.close();
+	console.log(result);
+	/*
+	var outputName=[];
+	var outputQuantity=[];
+	for(var i=0;i<result.length;i++){
+		for(var j=0;j<outputName.length;j++){
+			for(var y=0; y<result[i].name.length;y++){
+				if(outputName[j]!=result[i].name[y]){}		
+				
+			}
+		}
+	}	*/
+	var outputName=result[0].name;
+	var outputQuantity=[];
+	for(var i=1;i<result.length;i++){
+	outputName= arrayUnion(outputName,result[i].name);
+	}
+	console.log(outputName.length);
 
+	for(var c=0;c<outputName.length;c++){
+	outputQuantity[c]=0;
+	}
+	for(var i=0;i<result.length;i++){
+		for(var j=0;j<outputName.length;j++){
+			
+			for(var y=0; y<result[i].name.length;y++){
+			if(outputName[j]==result[i].name[y]){
+				outputQuantity[j]+=parseFloat(result[i].quantity[y]);
+			}				
+			}
+		}
+	}
+	console.log(outputQuantity);
+
+	res.render('showGrocery',{outputName:outputName,outputQuantity:outputQuantity});
+	});	
+	});
+	
+	
+});
 
 
 

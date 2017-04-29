@@ -13,8 +13,9 @@ input[type="text"], textarea {
 </head>
 <body>
 <h3 align="center">Create Your Shopping List</h3>
+<div align="right"><a href="/showRecord"><button class="w3-button w3-teal" type="button">Show All List</button></a></div>
 	<form acton="/createShoppingList" method="post" align="center">
-	<a>Name Of List:<input  type="text" name="nameOfList" value="" class="w3-input"  required><br>
+	<a><input  type="text" name="nameOfList" value="Name Of List" class="w3-input"  required><br>
 	<table border='0' align="center">
 	<% for (var i=1;i<result.length+1;i++){%>
 	
@@ -30,8 +31,6 @@ input[type="text"], textarea {
 	</table>
 	
 	<button aligh="center"class="w3-button w3-teal" type="submit">Create Shopping List</button>
-
-	<a href="/showRecord"><button class="w3-button w3-teal" type="button">Show All List</button></a>
 	</form>
 
 

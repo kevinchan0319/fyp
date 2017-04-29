@@ -1,20 +1,21 @@
 {
-    "name": "server",
-    "description": "COMPS381F (2016) Project Assignment",
-    "author": "Tang Chin Kit <s1164978@ouhk.edu.hk>,Chan Tsan Fu <s11538733@ouhk.edu.hk>", 
-    "version": "0.0.1",
-    "dependencies": {
-        "mongodb": "latest",
-	"mongoose" : "*",
-	"body-parser": "*",
-	"multer" :"*",
-     "express": "latest",
-     "express-fileupload": "latest",
-	"ejs" : "*",
-     "cookie-session": "*"
-    },
-    "scripts" : {
-		"start": "node server.js"
-    },
-    "engine": "*"
+  "name": "server",
+  "description": "COMPS381F (2016) Project Assignment",
+  "author": "Tang Chin Kit <s1164978@ouhk.edu.hk>,Chan Tsan Fu <s11538733@ouhk.edu.hk>",
+  "version": "0.0.1",
+  "dependencies": {
+    "array-union": "^1.0.2",
+    "body-parser": "*",
+    "cookie-session": "*",
+    "ejs": "*",
+    "express": "latest",
+    "express-fileupload": "latest",
+    "mongodb": "latest",
+    "mongoose": "*",
+    "multer": "*"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engine": "*"
 }
