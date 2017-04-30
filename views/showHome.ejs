@@ -1,0 +1,38 @@
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+</head>
+<body aligh="center">
+<h2 align="center" >Grocery Status
+<% if (outputName.length==0){%>
+<img src="data:  <%=result[0].mimetype%>+;base64,<%=result[0].data%>" alt='Smiley face' height='60' width='60'>
+<%}else{%>
+<img src="data:  <%=result[1].mimetype%>+;base64,<%=result[1].data%>" alt='Smiley face' height='60' width='60'>
+<%}%>
+</h2>
+
+
+	<table border='1' name="mytable" class="w3-table" align="center">
+	<% if (outputName.length==0){%>
+	<center>The status of your grocery is sufficient</center>
+	<%}%>
+	<% for (var i=0;i<outputName.length;i++){%>
+	<tr>
+	<td width="50%">
+	<a>Inventory of </a><a><font color="red"><%= outputName[i]%></a><a><font color="black"> is quite low, remaining</a><a><font color="red"> <%=outputQuantity[i]%></a><a><font color="black">!!</a>
+	</td>
+	</tr>
+	<%}%>
+	
+	</table></br></br>
+</br>
+</br>
+</br>
+
+
+
+
+</body>
+</html>

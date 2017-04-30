@@ -1,0 +1,53 @@
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<style>
+input[type="text"], textarea {
+
+  background-color : #9e9e9e; 
+
+}
+</style>
+</head>
+<body aligh="center">
+<h2 align="center" >Create Cookbook</h2>
+<form action="/insertCookbook" method="post" align="center">
+<a><input  type="text" name="cookbook" value="Name Of CookBook" class="w3-input"  required><br>
+	<table border='1' name="mytable" class="w3-table">
+	<tr class="w3-grey">
+	<td width="50%">Product Name</td>
+	<td width="50%">Inventory</td>
+	<td width="50%">Number</td>
+	</tr>
+	
+	<% for (var i=0;i<outputName.length;i++){%>
+	<tr>
+	<td width="50%">
+	<%= outputName[i]%>
+	<input type="hidden" name="outputName"value="<%= outputName[i]%>">
+	</td>
+	<td width="50%">
+	<a name="outputQuantity">
+	<%=outputQuantity[i]%>
+	<input type="hidden" name="outputQuantity"value="<%= outputQuantity[i]%>">
+	</td>
+	<td width="50%">
+	<input type="number" value="0"  min="0" max="<%=outputQuantity[i]%>" name="number"/>	
+	</td>
+	</tr>
+	<%}%>
+	</table></br>
+		<button aligh="center"class="w3-button w3-teal" type="submit">Create CookBook</button>
+		<a href="/showAllCookbook"><button class="w3-button w3-teal" type="button">Show My Cookbook</button></a>
+	</form>
+</br>
+</br>
+</br>
+</br></br>
+
+
+
+</body>
+</html>

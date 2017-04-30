@@ -1,0 +1,16 @@
+
+<html>
+  
+<body>
+	<form enctype ="multipart/form-data" action="/insert" method="post" >
+	
+
+	Name:<input type="text" name="name"><br>
+	
+	Photo:<br><input type="file" name="sampleFile"><br>
+	
+	<input type="submit" value="Create"/>
+	
+	</form>
+</body>
+</html>

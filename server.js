@@ -89,7 +89,42 @@ app.post("/insert",sampleFile,function(req,res){
 
 
 });
+app.get("/insertImage",function(req,res){
+res.sendFile(__dirname+'/public/image.html');
+});
+app.post("/insertImage",sampleFile,function(req,res){
+	//console.log(req.file.mimetype);
+	
+	
+	
+	MongoClient.connect(mongourl, function(err, db) {
+			var criteria = req.body;
+	var name = criteria.name;
+	var bfile = req.file;
+	
+	//var image = criteria.image;
+	
+	var a ={
+	
+	'name':name ,
+	//'image':image
+	'data':new Buffer(bfile.buffer).toString('base64'),'mimetype' : bfile.mimetype
+	};
+		createImage(db,a,function(result){
+		db.close();
+		res.redirect('/insertImage');		
+		});	
+	});
+	
 
+
+});
+function createImage(db,a,callback){
+	db.collection('image').insertOne(a,function(err,result){
+		callback(result);
+	});	
+	
+};
 function create(db,a,callback){
 	db.collection('fyp').insertOne(a,function(err,result){
 		callback(result);
@@ -365,32 +400,205 @@ MongoClient.connect(mongourl, function(err, db) {
 	
 
 });
+
+
+app.get("/insertCookbook",function(req,res){
+	
+MongoClient.connect(mongourl, function(err, db) {
+
+	showAllReceipt(db,function(result){
+		
+	//db.close();
+	
+	
+	inventory(result,function(output){
+
+	
+	showAllCookbook(db,function(result2){
+		if(result2[0]==null){
+	result2=[{'name':[],'quantity':[]}];		
+	}
+	inventory(result2,function(output2){
+	inventory2(output,output2,function(output3){
+	
+	res.render('insertCookbook',{outputName:output3.outputName,outputQuantity:output3.outputQuantity});
+	});
+	});	
+	});
+	});});	
+	
+	
+});
+});
+app.post("/insertCookbook",function(req,res){
+	var number = req.body.number;
+	var name =req.body.cookbook;
+	var outputName = req.body.outputName;
+	//var outputQuantity = req.body.outputQuantity;
+	console.log(req.body);
+MongoClient.connect(mongourl, function(err, db) {
+	
+	/*showAllReceipt(db,function(result){
+	
+
+	inventory(result,function(output){
+	var num=[];
+	var nam=[];
+	console.log(number.length);
+		for(var i=0;i<number.length;i++){
+		
+		if(number[i]==0){continue;}
+		else{
+			num[num.length] = number[i];
+			nam[nam.length]= output.outputNames[i];
+			
+		}		
+					
+	}
+	console.log(num,nam);*/
+	var num=[];
+	var nam=[];
+	console.log(number.length);
+		for(var i=0;i<number.length;i++){
+		
+		if(number[i]==0){continue;}
+		else{
+			num[num.length] = number[i];
+			nam[nam.length]= outputName[i];
+			
+		}		
+					
+	}
+	
+	var cookbook = {'ListName':name,'name':nam,'quantity':num};
+
+		insertCookbook(db,cookbook,function(output2){
+			db.close();
+			
+			res.render('showCookBookDetail',{name:name,list:nam,list1:num});	
+		});
+	/*});	
+	});*/
+	
+	
+});
+});
+function insertCookbook(db,a,callback){
+	db.collection('cookbook').insertOne(a,function(err,result){
+		
+	callback(result);
+	});	
+	
+};
+app.get("/showAllCookBook",function(req,res){
+
+
+MongoClient.connect(mongourl, function(err, db) {
+	
+	showAllCookbook(db,function(result){
+	db.close();
+	res.render('showAllCookbook',{result:result});	
+	});
+	
+	
+});
+});
+function showAllCookbook(db,callback){
+	db.collection('cookbook').find().toArray(function(err,result){
+		callback(result);
+	
+	
+	
+	});
+	
+};
+app.get("/showCookbookDetail",function(req,res){
+
+ 	//var id = req.query.id;
+	var id ={'_id':ObjectId(req.query.id)};
+MongoClient.connect(mongourl, function(err, db) {
+	db.collection('cookbook').findOne(id,function(err,result){
+		db.close();
+	console.log(result);
+	res.render('showCookBookDetail',{name:result.ListName,list:result.name,list1:result.quantity});	
+	
+	});
+	});
+});
+app.post("/deleteCookBook",function(req,res){
+ 	//var id = req.query.id;
+	//console.log(req.body.del.length);
+	//var id ={'_id':ObjectId(req.body.del)};
+	//console.log(req.body.del);
+	
+
+
+MongoClient.connect(mongourl, function(err, db) {
+	if(!req.body.del){		showAllCookbook(db,function(result){
+	db.close();
+	console.log(result);
+	res.render('showAllCookbook',{result:result});
+	});}else
+	if(req.body.del[0].length==24){
+	for(var i=0;i<req.body.del.length;i++){
+	var id = {'_id':ObjectId(req.body.del[i])};
+	//console.log(id);
+	db.collection('cookbook').deleteMany(id,function(err,result){
+	db.close();	
+	//res.(/showRecord);
+	
+	});}}else{
+	var id = {'_id':ObjectId(req.body.del)};
+		db.collection('cookbook').deleteMany(id,function(err,result){
+	db.close();});
+	}
+	showAllCookbook(db,function(result){
+	db.close();
+	console.log(result);
+	res.render('showAllCookbook',{result:result});
+	});
+	});
+	
+
+});
 const arrayUnion = require('array-union');
 app.get("/showAllGrocery",function(req,res){
 	
 MongoClient.connect(mongourl, function(err, db) {
 	
 	showAllReceipt(db,function(result){
-	db.close();
-	console.log(result);
-	/*
-	var outputName=[];
-	var outputQuantity=[];
-	for(var i=0;i<result.length;i++){
-		for(var j=0;j<outputName.length;j++){
-			for(var y=0; y<result[i].name.length;y++){
-				if(outputName[j]!=result[i].name[y]){}		
-				
-			}
-		}
-	}	*/
+		
+	//db.close();
+	
+	
+	inventory(result,function(output){
+
+	
+	showAllCookbook(db,function(result2){
+
+	if(result2[0]==null){
+	result2=[{'name':[],'quantity':[]}];		
+	}
+	inventory(result2,function(output2){
+	inventory2(output,output2,function(output3){
+	
+	res.render('showGrocery',{outputName:output3.outputName,outputQuantity:output3.outputQuantity});
+	});
+	});	
+	});
+	});});	
+	
+	
+});
+});
+function inventory(result,callback){
 	var outputName=result[0].name;
 	var outputQuantity=[];
 	for(var i=1;i<result.length;i++){
 	outputName= arrayUnion(outputName,result[i].name);
 	}
-	console.log(outputName.length);
-
+	
+	
 	for(var c=0;c<outputName.length;c++){
 	outputQuantity[c]=0;
 	}
@@ -404,15 +612,71 @@ MongoClient.connect(mongourl, function(err, db) {
 			}
 		}
 	}
-	console.log(outputQuantity);
+	
+	output={'outputName':outputName,'outputQuantity':outputQuantity};
+	//console.log(output);
+	callback(output);
+	
+};
+function inventory2(result,result2,callback){
+	var outputQuantity=result.outputQuantity;
+	
+	
+		for(var j=0;j<result.outputName.length;j++){
+			
+			for(var y=0; y<result2.outputName.length;y++){
+			if(result.outputName[j]==result2.outputName[y]){
+				outputQuantity[j]-=parseFloat(result2.outputQuantity[y]);
+			}				
+			}
+		}
+	
+	output={'outputName':result.outputName,'outputQuantity':outputQuantity};
+	
+	callback(output);
+	
+};
+app.get("/showHome",function(req,res){
+	
+MongoClient.connect(mongourl, function(err, db) {
+	
+	showAllReceipt(db,function(result){
+		
+	//db.close();
+	
+	
+	inventory(result,function(output){
 
-	res.render('showGrocery',{outputName:outputName,outputQuantity:outputQuantity});
+	
+	showAllCookbook(db,function(result2){
+		if(result2[0]==null){
+	result2=[{'name':[],'quantity':[]}];		
+	}
+	inventory(result2,function(output2){
+	inventory2(output,output2,function(output3){
+	
+	//res.render('showGrocery',{outputName:output2.outputName,outputQuantity:output2.outputQuantity});
+	
+		var outputQuantity=[];
+		var outputName=[];
+		for(var i=0;i<output3.outputName.length;i++){
+		if(output3.outputQuantity[i]<2){
+			outputName[outputName.length]=output3.outputName[i];
+			outputQuantity[outputQuantity.length]=output3.outputQuantity[i];
+		}
+		}
+		db.collection('image').find().toArray(function(err,image){
+	
+	
+		res.render('showHome',{result:image,outputName:outputName,outputQuantity:outputQuantity})
 	});	
 	});
+	});	
+	});
+	});});	
 	
 	
 });
-
-
+});
 
 app.listen(process.env.PORT || 8099);
