@@ -679,4 +679,65 @@ MongoClient.connect(mongourl, function(err, db) {
 });
 });
 
+app.get("/download",function(req,res){
+console.log("req of download");
+	var filePath =(__dirname+"/download/chi_tra.traineddata");
+	var fileName ="chi_tra.traineddata";
+	res.download(filePath,fileName,function(err){
+		if(err){
+		console.log(err);
+		res.status(500).end();
+		
+		}else
+			{ res.status(200).end();}
+	});
+	
+});
+
+app.get("/search",function(req,res){
+	var keyword = req.query.search;
+	console.log(keyword);
+MongoClient.connect(mongourl, function(err, db) {
+	
+	showAllReceipt(db,function(result){
+		
+	//db.close();
+	
+	
+	inventory(result,function(output){
+
+	
+	showAllCookbook(db,function(result2){
+
+	if(result2[0]==null){
+	result2=[{'name':[],'quantity':[]}];		
+	}
+	inventory(result2,function(output2){
+	inventory2(output,output2,function(output3){
+	var temp=[];;
+	var temp1=[];
+	if(keyword !=""){
+	for(var i=0;i<output3.outputName.length;i++){
+		if(output3.outputName[i]==keyword){
+			console.log(output3.outputName[i]);
+			temp[0] =output3.outputName[i];
+			temp1[0]=output3.outputQuantity[i];
+			console.log(temp);
+			
+			
+		
+		}
+	}
+		
+	console.log(output3.outputName);
+	res.render('showGrocery',{outputName:temp,outputQuantity:temp1});
+	}else{res.render('showGrocery',{outputName:output3.outputName,outputQuantity:output3.outputQuantity});}
+	});
+	});	
+	});
+	});});	
+	
+	
+});
+});
 app.listen(process.env.PORT || 8099);

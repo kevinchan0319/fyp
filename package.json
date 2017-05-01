@@ -7,6 +7,7 @@
     "array-union": "^1.0.2",
     "body-parser": "*",
     "cookie-session": "*",
+    "download-file": "^0.1.5",
     "ejs": "*",
     "express": "latest",
     "express-fileupload": "latest",

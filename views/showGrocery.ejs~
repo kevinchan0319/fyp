@@ -3,9 +3,36 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<style>
+
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}
+</style>
 </head>
 <body aligh="center">
 <h2 align="center" >My Grocery</h2>
+<form action="/search" method="get">
+
+  <input type="text" name="search" placeholder="Search..">
+
+ 
+</form>
 <form action="/deleteReceipt" method="post" align="center">
 	<table border='1' name="mytable" class="w3-table">
 	<tr class="w3-grey">
@@ -24,7 +51,11 @@
 	
 	</tr>
 	<%}%>
-	</table></br>
+	</table></br></br>
+</br>
+</br>
+</br>
+
 
 
 
