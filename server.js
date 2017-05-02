@@ -62,12 +62,12 @@ callback(result);
 app.get("/insert",function(req,res){
 res.sendFile(__dirname+'/public/createShopping.html');
 });
-app.post("/insert",sampleFile,function(req,res){
+app.post("/insert",function(req,res){
 	//console.log(req.file.mimetype);
-	
-	
+	console.log("insertRecipt="+req.body);
 	
 	MongoClient.connect(mongourl, function(err, db) {
+		console.log("insertRecipt="+req.body);
 			var criteria = req.body;
 	var name = criteria.name;
 	var bfile = req.file;
@@ -283,8 +283,8 @@ function showReceipt(db,callback){
 app.get("/insertReceipt",function(req,res){
 res.sendFile(__dirname+'/public/createReceipt.html');
 });
-app.post("/insertReceipt",sampleFile,function(req,res){
-	//console.log(req.file.mimetype);
+app.post("/insertReceipt",function(req,res){
+	console.log("insertreceipt="+req.body);
 	
 	
 	

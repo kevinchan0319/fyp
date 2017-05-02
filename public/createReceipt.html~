@@ -2,7 +2,7 @@
 <html>
   
 <body>
-	<form  action="/insertReceipt" method="post" >
+	<form enctype ="multipart/form-data" action="/insertReceipt" method="post" >
 	
 	<table>
 		<tr>
