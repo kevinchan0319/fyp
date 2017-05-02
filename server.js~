@@ -298,11 +298,13 @@ app.post("/insertReceipt",function(req,res){
 	var totalPrice=0;
 	var length;
 	length=price.length;
-	if(Array.isArray(price)==false){length=0;}
+	if(Array.isArray(price)==false){
+	length=1;}
 	console.log(length);
 	for(var i =0;i<length;i++){
 	totalPrice=totalPrice+parseFloat(price[i]);	
 	}
+
 		var a ={
 	'date':new Date().toDateString(),
 	'name':name,
@@ -571,7 +573,8 @@ app.get("/showAllGrocery",function(req,res){
 MongoClient.connect(mongourl, function(err, db) {
 	
 	showAllReceipt(db,function(result){
-		
+	console.log("abc"+result);
+	if(result!=null){	
 	//db.close();
 	
 	
@@ -590,7 +593,9 @@ MongoClient.connect(mongourl, function(err, db) {
 	});
 	});	
 	});
-	});});	
+	});}else{var nothing=[];
+
+		res.render('showGrocery',{outputName:nothing,outputQuantity:nothing});}});
 	
 	
 });

@@ -573,7 +573,8 @@ app.get("/showAllGrocery",function(req,res){
 MongoClient.connect(mongourl, function(err, db) {
 	
 	showAllReceipt(db,function(result){
-		
+	console.log("abc"+result);
+	if(result!=""){	
 	//db.close();
 	
 	
@@ -592,7 +593,9 @@ MongoClient.connect(mongourl, function(err, db) {
 	});
 	});	
 	});
-	});});	
+	});}else{var nothing=[];
+
+		res.render('showGrocery',{outputName:nothing,outputQuantity:nothing});}});
 	
 	
 });
