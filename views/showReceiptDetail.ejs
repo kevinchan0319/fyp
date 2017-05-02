@@ -13,7 +13,8 @@
 	<td width="50%">Price</td>
 	</tr>
 	
-	<% for (var i=0;i<name.length;i++){%>
+	<% if(Array.isArray(name)==true) {
+		for (var i=0;i<name.length;i++){%>
 	<tr>
 	<td width="50%">
 	<%= name[i] %>
@@ -25,6 +26,19 @@
 	$<%=price[i]%>
 	</td>
 	</tr>
+	<%}}else{%>
+		<tr>
+	<td width="50%">
+	<%= name %>
+	</td>
+	<td width="50%">
+	<%=quantity%>
+	</td>
+	<td width="50%">
+	$<%=price%>
+	</td>
+	</tr>
+
 	<%}%>
 	</table>
 

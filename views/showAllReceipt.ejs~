@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 </head>
 <body aligh="center">
-<h2 align="center" >ALL Receipt</h2>
+<h2 align="center" >My Receipt</h2>
 <form action="/deleteReceipt" method="post" align="center">
 	<table border='1' name="mytable" class="w3-table">
 	<tr class="w3-grey">
@@ -30,7 +30,7 @@
 	<%}%>
 	</table></br>
 	<button type="submit"  class="w3-button w3-teal"type="submit" id="change">Delete</button>
-	<!--<a href="/showShoppingDB"><button class="w3-button w3-teal" type ="button">Create Shopping List</button></a>-->
+	<a href="/insertReceipt"><button class="w3-button w3-teal" type ="button">Manual Input Receipt</button></a>-->
 </from>
 <!--
 <div align="center">

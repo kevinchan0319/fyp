@@ -1,47 +1,93 @@
 
 <html>
-  
-<body>
-	<form  action="/insertReceipt" method="post" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+</head>
+<body aligh="center">
+<h2 align="center" >Create Receipt</h2>
 	
-	<table>
-		<tr>
-		   
-			name:<input type="text" name="name"></input>
-			quantity:<input type="number" name="quantity"></input>
-			price:<input tyep="number" name="price"></input>
-		</tr><br>
-		<tr>
-		   
-			name:<input type="text" name="name"></input>
-			quantity:<input type="number" name="quantity"></input>
-			price:<input tyep="number" name="price"></input>
-		</tr><br>
-		<tr>
-		   
-			name:<input type="text" name="name"></input>
-			quantity:<input type="number" name="quantity"></input>
-			price:<input tyep="number" name="price"></input>
-		</tr><br>
-		<tr>
-		   
-			name:<input type="text" name="name"></input>
-			quantity:<input type="number" name="quantity"></input>
-			price:<input tyep="number" name="price"></input>
-		</tr><br>
-		<tr>
-		   
-			name:<input type="text" name="name"></input>
-			quantity:<input type="number" name="quantity"></input>
-			price:<input tyep="number" name="price"></input>
-		</tr><br>
-
-
-
-
 	
-	<input type="submit" value="Create"/>
+	<form  action="/insertReceipt" method="post"align="center" >
+
+	<table border='1' id="myTable" align="center" class="w3-table">
+	<tr class="w3-grey">
+	<td width="33%">Product Name</td>
+	<td width="33%">Quantity</td>
+	<td width="33%">Price</td>
+	</tr>
+	
+		<tr>
+		   
+			<td><input type="text" name="name" size="33%" class="w3-input"></input></td>
+			<td><input type="number" name="quantity"size="33%" class="w3-input"></input></td>
+			<td><input tyep="number" name="price"size="33%" class="w3-input"></input></td>
+		</tr>
+
+
+
+		<tr >
+		<td colspan="3" ><div align="center"><button onclick="addRow()" type="button" class="w3-button w3-Indigo">Add Row</button>
+	<button onclick="removeRow()" type="button" class="w3-button w3-Indigo">Remove Row</button></div></tr>
+		</tr>
+	</table></br>
+
+
+
+
+	<button type="submit"  class="w3-button w3-teal"type="submit" >Create Receipt</button>
+	<a href="/showAllReceipt"><button class="w3-button w3-teal" type ="button">Show All Receipt</button></a>
 	
 	</form>
+	
+	<script>
+	function addRow() {
+
+	    var tableID="myTable";
+	    var table = document.getElementById(tableID);
+	    var rowCount = table.rows.length-1;
+
+	    
+		//You declared var in front of the same variable twice. Don't do that.
+		//You were appending cells inside existing cell. Add them to row instead.
+		var row = table.insertRow(rowCount);
+		var cell1 = row.insertCell(0);
+		var element1 = document.createElement('input');
+		element1.type="text";
+		element1.name="name";
+		element1.className="w3-input";
+		cell1.appendChild(element1);
+		
+		
+		var cell2 = row.insertCell(1);
+		var element2 = document.createElement('input');
+		element2.type="number";
+		element2.name="quantity";
+		element2.className="w3-input";
+		cell2.appendChild(element2);
+		
+		var cell3 = row.insertCell(2);
+		var element3 = document.createElement('input');
+		element3.type="number";
+		element3.name="price";
+		element3.className="w3-input";
+		cell3.appendChild(element3);
+
+
+	    
+	}
+
+	function removeRow(){
+	    var tableID="myTable";
+	    var table = document.getElementById(tableID);
+	    var rowCount = table.rows.length-2;
+
+	    if(rowCount>1){   
+		//you had type in deletRow. Also, you can pass in -1 to remove the last row        
+		table.deleteRow(rowCount); 
+	    }
+	}
+	</script>
 </body>
 </html>
